@@ -52,17 +52,17 @@ class LibraryTest {
     }
     @Test
     void testShouldChangeLoanStatusToReturned(){
-        assertEquals(LoanStatus.RETURNED,library.returnLoan(library.getLoans().getFirst()).getStatus());
+        assertEquals(LoanStatus.RETURNED,library.returnLoan(library.getLoans().get(0)).getStatus());
     }
     @Test
     void testShouldSetReturnDateToNow(){
-        assertEquals(LocalDateTime.now(),library.returnLoan(library.getLoans().getFirst()).getReturnDate());
+        assertEquals(LocalDateTime.now(),library.returnLoan(library.getLoans().get(0)).getReturnDate());
     }
     @Test
     void testShouldAddUpTheReturnedBook(){
-        int oldQuantity = library.getQuantityOfBooks(library.getLoans().getFirst().getBook());
-        library.returnLoan(library.getLoans().getFirst());
-        assertEquals(oldQuantity+1,library.getQuantityOfBooks(library.getLoans().getFirst().getBook()));
+        int oldQuantity = library.getQuantityOfBooks(library.getLoans().get(0).getBook());
+        library.returnLoan(library.getLoans().get(0));
+        assertEquals(oldQuantity+1,library.getQuantityOfBooks(library.getLoans().get(0).getBook()));
     }
     @Test
     void testShouldNotReturnLoan(){
@@ -75,8 +75,8 @@ class LibraryTest {
     }
     @Test
     void testCannotReturnAnAlreadyReturnedLoan(){
-        library.returnLoan(library.getLoans().getFirst());
-        assertNull(library.returnLoan(library.getLoans().getFirst()));
+        library.returnLoan(library.getLoans().get(0));
+        assertNull(library.returnLoan(library.getLoans().get(0)));
     }
     @AfterEach
     public  void cleanUp(){

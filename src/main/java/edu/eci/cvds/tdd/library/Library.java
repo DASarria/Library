@@ -23,6 +23,15 @@ public class Library {
         books = new HashMap<>();
         loans = new ArrayList<>();
     }
+    public List<User> getUsers(){
+        return users;
+    }
+    public Map<Book, Integer> getBooks(){
+        return books;
+    }
+    public List<Loan> getLoans(){
+        return loans;
+    }
 
     /**
      * Adds a new {@link edu.eci.cvds.tdd.library.book.Book} into the system, the book is store in a Map that contains
@@ -34,7 +43,7 @@ public class Library {
      *
      * @return true if the book was stored false otherwise.
      */
-    public boolean addBook(Book book) {
+    public boolean T(Book book) {
         //TODO Implement the logic to add a new book into the map.
         return false;
     }

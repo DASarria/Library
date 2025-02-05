@@ -4,16 +4,18 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>edu.eci.cvds</groupId>
-  <artifactId>Libraryy</artifactId>
+  <artifactId>Library</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>Libraryy</name>
+  <name>Library</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.target>1.17</maven.compiler.target>
+    <maven.compiler.source>1.17</maven.compiler.source>
   </properties>
 
   <dependencyManagement>

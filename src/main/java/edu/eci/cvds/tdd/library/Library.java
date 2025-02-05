@@ -35,7 +35,11 @@ public class Library {
      * @return true if the book was stored false otherwise.
      */
     public boolean addBook(Book book) {
-        //TODO Implement the logic to add a new book into the map.
+        if(books.containsKey(book)){
+            books.replace(book, books.get(book)+1);
+        } else {
+            books.put(book,1);
+        }
         return false;
     }
 
@@ -73,6 +77,9 @@ public class Library {
 
     public boolean addUser(User user) {
         return users.add(user);
+    }
+    public int getQuantityOfBooks(Book book){
+        return books.get(book);
     }
 
 }

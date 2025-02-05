@@ -2,8 +2,11 @@ package edu.eci.cvds.tdd.library;
 
 import edu.eci.cvds.tdd.library.book.Book;
 import edu.eci.cvds.tdd.library.loan.Loan;
+import edu.eci.cvds.tdd.library.loan.LoanStatus;
 import edu.eci.cvds.tdd.library.user.User;
 
+import java.nio.FloatBuffer;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,9 +46,13 @@ public class Library {
      *
      * @return true if the book was stored false otherwise.
      */
-    public boolean T(Book book) {
-        //TODO Implement the logic to add a new book into the map.
-        return false;
+    public boolean addBook(Book book) {
+        if(books.containsKey(book)){
+            books.replace(book, books.get(book)+1);
+        } else {
+            books.put(book,1);
+        }
+        return true;
     }
 
     /**
@@ -76,12 +83,25 @@ public class Library {
      * @return the loan with the RETURNED status.
      */
     public Loan returnLoan(Loan loan) {
-        //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-        return null;
+        if(!loans.contains(loan)){
+            return null;
+        }
+        loan.setStatus(LoanStatus.RETURNED);
+        loan.setReturnDate(LocalDateTime.now());
+        addBook(loan.getBook());
+        return loan;
     }
 
     public boolean addUser(User user) {
         return users.add(user);
     }
-
+    public int getQuantityOfBooks(Book book){
+        if(!books.containsKey(book)){
+            return 0;
+        }
+        return books.get(book);
+    }
+    public List<Loan> getLoans(){
+        return loans;
+    }
 }

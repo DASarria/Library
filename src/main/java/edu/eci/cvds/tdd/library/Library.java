@@ -32,9 +32,6 @@ public class Library {
     public Map<Book, Integer> getBooks(){
         return books;
     }
-    public List<Loan> getLoans(){
-        return loans;
-    }
 
     /**
      * Adds a new {@link edu.eci.cvds.tdd.library.book.Book} into the system, the book is store in a Map that contains
@@ -70,7 +67,32 @@ public class Library {
      */
     public Loan loanABook(String userId, String isbn) {
         //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-        return null;
+        Book bookLoaned = null;
+        User user = null;
+        for (User u : users) {
+            if (u.getId().equals(userId)) {
+                user = u;
+                break;
+            }
+        }
+        for (Book b : books.keySet()) {
+            if (b.getIsbn().equals(isbn)) {
+                bookLoaned = b;
+                break;
+            }
+        }
+        
+        if (user == null || bookLoaned == null) {
+            return null;
+        }
+        books.put(bookLoaned,books.get(bookLoaned)-1);
+        Loan newLoan = new Loan();
+        newLoan.setBook(bookLoaned);
+        newLoan.setUser(user);
+        newLoan.setLoanDate(LocalDateTime.now());
+        newLoan.setStatus(LoanStatus.ACTIVE);
+        loans.add(newLoan);
+        return newLoan;
     }
 
     /**

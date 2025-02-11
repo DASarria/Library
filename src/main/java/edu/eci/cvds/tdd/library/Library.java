@@ -26,12 +26,6 @@ public class Library {
         books = new HashMap<>();
         loans = new ArrayList<>();
     }
-    public List<User> getUsers(){
-        return users;
-    }
-    public Map<Book, Integer> getBooks(){
-        return books;
-    }
 
     /**
      * Adds a new {@link edu.eci.cvds.tdd.library.book.Book} into the system, the book is store in a Map that contains

@@ -92,6 +92,7 @@ public class Library {
         newLoan.setLoanDate(LocalDateTime.now());
         newLoan.setStatus(LoanStatus.ACTIVE);
         loans.add(newLoan);
+        //asfsadf
         return newLoan;
     }
 

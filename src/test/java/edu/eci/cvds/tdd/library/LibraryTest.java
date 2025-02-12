@@ -17,6 +17,7 @@ class LibraryTest {
     private Library library;
     private Book book;
     private User user;
+    private Loan loan;
 
     @BeforeEach
     public void setup(){
@@ -27,7 +28,7 @@ class LibraryTest {
      user.setName("David");
      library.addBook(book);
      library.addUser(user);
-     library.loanABook(user.getId(),book.getIsbn());
+     loan = library.loanABook(user.getId(),book.getIsbn());
     }
     /**
      * Rigorous Test :-)
@@ -66,10 +67,15 @@ class LibraryTest {
     /**
      * igual falla
      */
-    //@Test
-    //void testShouldSetReturnDateToNow(){
-     //   assertEquals(LocalDateTime.now(),library.returnLoan(library.getLoans().get(0)).getReturnDate());
-    //}
+    @Test
+    void testShouldSetReturnDateToNow(){
+        LocalDateTime beforeReturn = LocalDateTime.now();
+        Loan returnedLoan = library.returnLoan(loan);
+        LocalDateTime afterReturn =  LocalDateTime.now();
+        assertTrue(
+                (returnedLoan.getReturnDate().isAfter(beforeReturn) || returnedLoan.getReturnDate().isEqual(beforeReturn)) &&
+                        (returnedLoan.getReturnDate().isBefore(afterReturn) || returnedLoan.getReturnDate().isEqual(afterReturn)));
+    }
 
     /**
      * tambien
@@ -84,56 +90,56 @@ class LibraryTest {
 
     @Test
     void testShouldNotReturnLoan(){
-        Loan loan = new Loan();
-        loan.setLoanDate(LocalDateTime.of(2025,1,1,0,0));
-        loan.setStatus(LoanStatus.ACTIVE);
-        loan.setUser(user);
-        loan.setBook(new Book("A1","B2","C3"));
+        Loan badLoan = new Loan();
+        badLoan.setLoanDate(LocalDateTime.of(2025,1,1,0,0));
+        badLoan.setStatus(LoanStatus.ACTIVE);
+        badLoan.setUser(user);
+        badLoan.setBook(new Book("A1","B2","C3"));
+        assertNull(library.returnLoan(badLoan));
+    }
+
+    /**
+     * tambien falla
+     */
+    @Test
+    void testCannotReturnAnAlreadyReturnedLoan(){
+        library.returnLoan(loan);
         assertNull(library.returnLoan(loan));
     }
 
-//    /**
-//     * tambien falla
-//     */
-//    @Test
-//    void testCannotReturnAnAlreadyReturnedLoan(){
-//        library.returnLoan(library.getLoans().get(0));
-//        assertNull(library.returnLoan(library.getLoans().get(0)));
-//    }
-
 
     @Test
-    public void loanACorrectBookTest() {
-        Loan loan = library.getLoans().get(0);
-        assertEquals(loan.getBook().getIsbn(), book.getIsbn());
+     void loanACorrectBookTest() {
+        Loan newLoan = library.getLoans().get(0);
+        assertEquals(newLoan.getBook().getIsbn(), book.getIsbn());
     }
 
     @Test
-    public void loanABookTest() {
+     void loanABookTest() {
         assertEquals(1, library.getLoans().size());
     }
 
     @Test
-    public void noLoanWithoutNoUserTest() {
+     void noLoanWithoutNoUserTest() {
         library.addBook(book);
-        Loan loan = library.loanABook("55555",book.getIsbn());
-        assertNull(loan);
+        Loan newLoan = library.loanABook("55555",book.getIsbn());
+        assertNull(newLoan);
     }
 
     @Test
-    public void noLoanWithoutBookTest() {
+     void noLoanWithoutBookTest() {
         library.addUser(user);
-        Loan loan = library.loanABook(user.getId(),"55555");
-        assertNull(loan);
+        Loan newLoan = library.loanABook(user.getId(),"55555");
+        assertNull(newLoan);
 
     }
 
     @Test
-    public void noLoanWithNoValidBookTest() {
+     void noLoanWithNoValidBookTest() {
         library.addUser(user);
         library.addBook(book);
-        Loan loan = library.loanABook(user.getId(),"INVALID");
-        assertNull(loan);
+        Loan newLoan = library.loanABook(user.getId(),"INVALID");
+        assertNull(newLoan);
     }
 
 

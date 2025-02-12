@@ -60,7 +60,6 @@ public class Library {
      * @return The new created loan.
      */
     public Loan loanABook(String userId, String isbn) {
-        //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
         Book bookLoaned = null;
         User user = null;
         for (User u : users) {
@@ -99,7 +98,7 @@ public class Library {
      * @return the loan with the RETURNED status.
      */
     public Loan returnLoan(Loan loan) {
-        if(!loans.contains(loan)){
+        if(!loans.contains(loan) || loan.getStatus().equals(LoanStatus.RETURNED)){
             return null;
         }
         loan.setStatus(LoanStatus.RETURNED);

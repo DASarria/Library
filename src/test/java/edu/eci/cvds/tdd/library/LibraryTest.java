@@ -30,13 +30,6 @@ class LibraryTest {
      library.addUser(user);
      loan = library.loanABook(user.getId(),book.getIsbn());
     }
-    /**
-     * Rigorous Test :-)
-     */
-    @Test
-    void shouldAnswerWithTrue() {
-        assertTrue(true);
-    }
 
     @Test
     void testShouldAddNewBook(){
@@ -77,9 +70,7 @@ class LibraryTest {
                         (returnedLoan.getReturnDate().isBefore(afterReturn) || returnedLoan.getReturnDate().isEqual(afterReturn)));
     }
 
-    /**
-     * tambien
-     */
+
     @Test
     void testShouldAddUpTheReturnedBook(){
         int oldQuantity = library.getQuantityOfBooks(library.getLoans().get(0).getBook());
@@ -109,25 +100,25 @@ class LibraryTest {
 
 
     @Test
-     void loanACorrectBookTest() {
+     void testLoanACorrectBookTest() {
         Loan newLoan = library.getLoans().get(0);
         assertEquals(newLoan.getBook().getIsbn(), book.getIsbn());
     }
 
     @Test
-     void loanABookTest() {
+     void testLoanABookTest() {
         assertEquals(1, library.getLoans().size());
     }
 
     @Test
-     void noLoanWithoutNoUserTest() {
+     void testNoLoanWithoutNoUserTest() {
         library.addBook(book);
         Loan newLoan = library.loanABook("55555",book.getIsbn());
         assertNull(newLoan);
     }
 
     @Test
-     void noLoanWithoutBookTest() {
+     void testNoLoanWithoutBookTest() {
         library.addUser(user);
         Loan newLoan = library.loanABook(user.getId(),"55555");
         assertNull(newLoan);
@@ -135,7 +126,7 @@ class LibraryTest {
     }
 
     @Test
-     void noLoanWithNoValidBookTest() {
+     void testNoLoanWithNoValidBookTest() {
         library.addUser(user);
         library.addBook(book);
         Loan newLoan = library.loanABook(user.getId(),"INVALID");
